@@ -1,0 +1,7 @@
+{
+  "name": "80s Christmas Photo",
+  "description": "Create a tacky 80s Christmas family photo with Gemini, then animate it instantly with Veo.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
