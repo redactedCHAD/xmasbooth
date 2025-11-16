@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { Style } from '../types';
+import Tooltip from './Tooltip';
 
 interface VideoPromptModalProps {
   onClose: () => void;
@@ -54,29 +55,45 @@ const VideoPromptModal: React.FC<VideoPromptModalProps> = ({ onClose, onSubmit, 
             </p>
           </div>
         )}
-
-        <p className="text-center mb-6">Describe how you want this image to move. (e.g., "The person winks and the Christmas lights flash")</p>
         
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           {isApiKeyNeeded && (
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label htmlFor="api-key-input" className="text-sm font-bold">Google AI API Key</label>
+                <Tooltip text="The 'Bring to Life' feature uses the Veo model to animate your image. This requires an API key from Google AI Studio. Your key is only used for this session and not stored.">
+                  <span className={`cursor-help border rounded-full w-5 h-5 flex items-center justify-center text-sm ${theme.borderClass} ${theme.mainTextColor}`}>?</span>
+                </Tooltip>
+              </div>
+              <input
+                id="api-key-input"
+                type="password"
+                value={keyInput}
+                onChange={(e) => setKeyInput(e.target.value)}
+                placeholder="Paste your API key here"
+                required
+                className={`w-full border-2 p-3 focus:outline-none focus:ring-2 ${theme.containerBgClass} ${theme.borderClass} ${theme.mainTextColor} focus:${theme.accentBorderClass}`}
+              />
+            </div>
+          )}
+          <div>
+            <div className="flex items-center justify-between mb-1">
+                <label htmlFor="prompt-input" className="text-sm font-bold">Animation Prompt</label>
+                <Tooltip text="Describe the animation you want to see. Be specific! For example: 'Make the person slowly smile and the snow fall gently in the background.'">
+                    <span className={`cursor-help border rounded-full w-5 h-5 flex items-center justify-center text-sm ${theme.borderClass} ${theme.mainTextColor}`}>?</span>
+                </Tooltip>
+            </div>
             <input
-              type="password"
-              value={keyInput}
-              onChange={(e) => setKeyInput(e.target.value)}
-              placeholder="Paste your API key here"
+              id="prompt-input"
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Make it move..."
+              autoFocus={!isApiKeyNeeded}
               required
               className={`w-full border-2 p-3 focus:outline-none focus:ring-2 ${theme.containerBgClass} ${theme.borderClass} ${theme.mainTextColor} focus:${theme.accentBorderClass}`}
             />
-          )}
-          <input
-            type="text"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Make it move..."
-            autoFocus={!isApiKeyNeeded}
-            required
-            className={`w-full border-2 p-3 focus:outline-none focus:ring-2 ${theme.containerBgClass} ${theme.borderClass} ${theme.mainTextColor} focus:${theme.accentBorderClass}`}
-          />
+          </div>
           <div className="flex justify-center space-x-4 pt-2">
              <button type="button" onClick={onClose} className="bg-gray-600 text-white py-2 px-8 border-2 border-gray-400 hover:bg-gray-700 text-lg transition-colors">
               CANCEL
