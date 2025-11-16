@@ -32,7 +32,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onPromptSubmit, disabled, theme }
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Describe what to change..."
                 disabled={disabled}
-                className={`flex-grow border-2 p-3 focus:outline-none focus:ring-2 disabled:opacity-50 ${theme.containerBgClass} ${theme.borderClass} text-white focus:ring-red-500 ${theme.boxGlowClass}`}
+                className={`flex-grow border-2 p-3 focus:outline-none focus:ring-2 disabled:opacity-50 ${theme.containerBgClass} ${theme.borderClass} ${theme.mainTextColor} focus:ring-red-500 ${theme.boxGlowClass}`}
             />
             <button type="submit" disabled={disabled} className={`py-3 px-6 border-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed ${btn.secondaryBg} ${btn.secondaryText} ${btn.secondaryBorder} ${btn.secondaryHoverBg} ${btn.secondaryActiveBg}`}>
                 REMIX

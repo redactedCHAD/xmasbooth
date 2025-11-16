@@ -45,5 +45,6 @@ export interface Style {
       tertiaryActiveBg: string;
     };
     spinnerClass: string;
+    backgroundEffect?: 'snowfall';
   };
 }

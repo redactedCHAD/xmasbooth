@@ -14,6 +14,22 @@ import VideoPromptModal from './components/VideoPromptModal';
 import Spinner from './components/Spinner';
 import { Content } from '@google/genai';
 
+const Snowfall: React.FC = () => {
+  const snowflakeCount = 100;
+  const snowflakes = Array.from({ length: snowflakeCount }).map((_, i) => {
+    const style = {
+      left: `${Math.random() * 100}vw`,
+      animationDuration: `${Math.random() * 5 + 5}s`, // 5 to 10 seconds
+      animationDelay: `${Math.random() * 5}s`,
+      opacity: Math.random() * 0.5 + 0.3,
+      transform: `scale(${Math.random() * 0.5 + 0.5})`,
+    };
+    return <div key={i} className="snowflake" style={style}></div>;
+  });
+
+  return <div className="snowfall-container">{snowflakes}</div>;
+};
+
 const styles: Style[] = [
   {
     id: '80s',
@@ -36,7 +52,8 @@ const styles: Style[] = [
         secondaryBg: 'bg-red-500', secondaryText: 'text-white', secondaryBorder: 'border-red-400', secondaryHoverBg: 'hover:bg-red-600', secondaryActiveBg: 'active:bg-red-700',
         tertiaryBg: 'bg-yellow-400', tertiaryText: 'text-black', tertiaryBorder: 'border-yellow-200', tertiaryHoverBg: 'hover:bg-yellow-300', tertiaryActiveBg: 'active:bg-yellow-500',
       },
-      spinnerClass: ''
+      spinnerClass: '',
+      backgroundEffect: 'snowfall',
     }
   },
   {
@@ -61,6 +78,54 @@ const styles: Style[] = [
         tertiaryBg: 'bg-lime-400', tertiaryText: 'text-black', tertiaryBorder: 'border-lime-300', tertiaryHoverBg: 'hover:bg-lime-300', tertiaryActiveBg: 'active:bg-lime-500',
       },
       spinnerClass: 'spinner-whoville'
+    }
+  },
+  {
+    id: 'nightmare',
+    name: 'Nightmare Holiday',
+    tagline: 'Your Spooky Christmas Card!',
+    prompt: "Stylize this person in the artistic style reminiscent of 'The Nightmare Before Christmas.' Emphasize characters with exaggeratedly tall and slender figures, particularly noticeable in the male skeleton characters, and more human-like but still stylized proportions for female characters like Sally, featuring her iconic patchwork dress and stitched skin. The facial features should be distinct, with large, expressive eyes (for Sally) or hollow, black sockets (for skeleton characters). The color palette should lean towards cooler, muted tones with deep blues, purples, and greys, punctuated by more vibrant, almost glowing elements like the moon and Sally's colorful dress. The overall aesthetic should have a slightly melancholic yet charming quality, with visible brushstrokes or shading that gives it a hand-drawn, illustrative feel, set against a subtly textured, desolate landscape. Generate only the image without any text.",
+    shareText: "I made a spooky-cool Nightmare Before Christmas version of myself! 🎃🎄 #NightmareChristmas #Gemini #AI",
+    theme: {
+      bg: '#0c0a1a',
+      mainTextColor: 'text-purple-300',
+      accentTextColor: 'text-orange-400',
+      containerBgClass: 'bg-black bg-opacity-50',
+      glowTextClass: 'text-glow-purple',
+      glowAccentClass: 'text-glow-orange',
+      borderClass: 'border-purple-400',
+      accentBorderClass: 'border-orange-500',
+      boxGlowClass: 'box-glow-purple',
+      button: {
+        primaryBg: 'bg-purple-600', primaryText: 'text-white', primaryBorder: 'border-purple-400', primaryHoverBg: 'hover:bg-purple-500', primaryActiveBg: 'active:bg-purple-700',
+        secondaryBg: 'bg-orange-600', secondaryText: 'text-white', secondaryBorder: 'border-orange-400', secondaryHoverBg: 'hover:bg-orange-500', secondaryActiveBg: 'active:bg-orange-700',
+        tertiaryBg: 'bg-teal-500', tertiaryText: 'text-white', tertiaryBorder: 'border-teal-300', tertiaryHoverBg: 'hover:bg-teal-400', tertiaryActiveBg: 'active:bg-teal-600',
+      },
+      spinnerClass: 'spinner-nightmare'
+    }
+  },
+  {
+    id: 'minimalist',
+    name: 'Minimalist Line Art',
+    tagline: 'Your Modern, Clean Portrait',
+    prompt: "Stylize a photo into a minimalist, line art illustration with a clean and contemporary aesthetic. Emphasize simple, fluid black outlines to define figures and objects, with minimal internal details. Incorporate a very limited color palette, using subtle, desaturated background tones (like cream or light beige) and only sparse, soft pastel or muted color fills for specific elements (e.g., hair, a hat, a piece of fruit, a cup). The overall impression should be uncluttered, with a focus on conveying the essence of the subject through elegant, simple forms, reminiscent of modern digital line drawings or web illustrations. Generate only the image without any text.",
+    shareText: "I created this cool minimalist line art version of myself! ✨ #MinimalistArt #LineArt #Gemini #AI",
+    theme: {
+      bg: '#f5f2ed',
+      mainTextColor: 'text-gray-800',
+      accentTextColor: 'text-amber-800',
+      containerBgClass: 'bg-white bg-opacity-70',
+      glowTextClass: 'text-glow-black',
+      glowAccentClass: 'text-glow-brown',
+      borderClass: 'border-gray-800',
+      accentBorderClass: 'border-amber-700',
+      boxGlowClass: 'box-glow-black',
+      button: {
+        primaryBg: 'bg-gray-800', primaryText: 'text-white', primaryBorder: 'border-gray-900', primaryHoverBg: 'hover:bg-gray-700', primaryActiveBg: 'active:bg-gray-900',
+        secondaryBg: 'bg-amber-700', secondaryText: 'text-white', secondaryBorder: 'border-amber-800', secondaryHoverBg: 'hover:bg-amber-600', secondaryActiveBg: 'active:bg-amber-800',
+        tertiaryBg: 'bg-gray-300', tertiaryText: 'text-gray-800', tertiaryBorder: 'border-gray-400', tertiaryHoverBg: 'hover:bg-gray-200', tertiaryActiveBg: 'active:bg-gray-400',
+      },
+      spinnerClass: 'spinner-minimalist',
     }
   }
 ];
@@ -159,9 +224,9 @@ const App: React.FC = () => {
               <button 
                 key={style.id} 
                 onClick={() => setSelectedStyle(style)} 
-                className="p-6 border-2 border-green-400 bg-black bg-opacity-30 hover:bg-opacity-50 transition-all duration-300 transform hover:scale-105 box-glow-green"
+                className={`p-6 border-2 transition-all duration-300 transform hover:scale-105 h-full text-left ${style.theme.borderClass} ${style.theme.containerBgClass} ${style.theme.boxGlowClass}`}
               >
-                <h3 className={`text-2xl mb-2 ${style.theme.glowTextClass}`}>{style.name}</h3>
+                <h3 className={`text-2xl mb-2 ${style.theme.glowTextClass} ${style.theme.mainTextColor}`}>{style.name}</h3>
                 <p className={`${style.theme.accentTextColor}`}>{style.tagline}</p>
               </button>
             ))}
@@ -210,11 +275,12 @@ const App: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen p-4 sm:p-8 flex flex-col items-center transition-colors duration-500 ${selectedStyle ? currentTheme?.mainTextColor : 'text-green-400'}`}
+      className={`min-h-screen p-4 sm:p-8 flex flex-col items-center transition-colors duration-500 relative ${selectedStyle ? currentTheme?.mainTextColor : 'text-green-400'}`}
       style={{
         backgroundColor: currentTheme?.bg ?? '#14281d'
       }}
     >
+      {(appState === AppState.PROCESSING || appState === AppState.RESULT) && selectedStyle?.theme.backgroundEffect === 'snowfall' && <Snowfall />}
       {isGeneratingVideo && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center z-50">
           <Spinner spinnerClass={currentTheme?.spinnerClass}/>
@@ -237,14 +303,14 @@ const App: React.FC = () => {
       </main>
       <footer className={`text-center text-sm mt-8 ${selectedStyle ? 'opacity-100' : 'opacity-0'} transition-opacity`}>
         <p>
-          Made by{' '}
+          From:{' '}
           <a
-            href="https://x.com/YaakovLyubetsky"
+            href="https://contentkoala.xyz"
             target="_blank"
             rel="noopener noreferrer"
             className={`underline ${currentTheme ? 'hover:' + currentTheme.accentTextColor : 'hover:text-red-400'} transition-colors`}
           >
-            yaakov@
+            ContentKoala@
           </a>
         </p>
       </footer>
